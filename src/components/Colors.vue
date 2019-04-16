@@ -1,16 +1,30 @@
 <template>
-  <div class="hello">
-    Colors
+  <div 
+    class="colors" 
+    :style="{backgroundColor: color.hex}"
+    @click="$emit('add-color', color.hex)">
+    <p>{{color.name}}</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Colors'
+  name: 'Colors',
+  props: {
+    color: Object
+  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .colors {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border: 2px solid black;  
+  }
 </style>
