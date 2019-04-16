@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <div class="colors" v-bind:style="{backgroundColor: color.hex}">
-      <p>{{color.name}}</p>
-    </div>
+  <div 
+    class="colors" 
+    :style="{backgroundColor: color.hex}"
+    @click="$emit('add-color', color.hex)">
+    <p>{{color.name}}</p>
   </div>
 </template>
 

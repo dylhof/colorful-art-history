@@ -1,7 +1,11 @@
 <template>
   <div id="app"> 
     <div class="colorArea">
-      <Colors v-for="(color, index) in colors" :key="index" :color="color"></Colors>
+      <Colors 
+        v-for="(color, index) in colors" 
+        :key="index" 
+        :color="color"
+        @add-color="addColor"></Colors>
     </div>
     <button @click="fetchColors">Fetch More Colors</button>
   </div>
@@ -20,7 +24,8 @@ export default {
     return{
       colors: [],
       nextColors: '',
-      selectedColors: []
+      selectedColors: [],
+      allColors: false
     }
   },
   mounted() {
@@ -32,14 +37,22 @@ export default {
       })
   },
   methods: {
-    fetchColors: function() {
-      axios
-        .get(`https://api.harvardartmuseums.org/color?apikey=${process.env.VUE_APP_API_KEY}&page=${this.nextColors}`)
-        .then(response => {
-          response.data.records.forEach(color => this.colors.push(color));
-          this.nextColors++
-        })
-
+    fetchColors: function () {
+      if(this.nextColors <= 15) {
+        axios
+          .get(`https://api.harvardartmuseums.org/color?apikey=${process.env.VUE_APP_API_KEY}&page=${this.nextColors}`)
+          .then(response => {
+            response.data.records.forEach(color => this.colors.push(color));
+            this.nextColors++
+          })
+      } else {
+        this.allColors = true
+      }
+    },
+    addColor: function(color) {
+      if(!this.selectedColors.includes(color)){
+        this.selectedColors.push(color)
+      }
     }
   }
 }
