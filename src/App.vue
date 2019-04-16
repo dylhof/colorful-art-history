@@ -1,7 +1,9 @@
 <template>
-  <div id="app">
-    
-    <Colors v-for="(color, index) in colors" :key="index" :color="color"></Colors>
+  <div id="app"> 
+    <div class="colorArea">
+      <Colors v-for="(color, index) in colors" :key="index" :color="color"></Colors>
+    </div>
+    <button @click="fetchColors">Fetch More Colors</button>
   </div>
 </template>
 
@@ -26,12 +28,26 @@ export default {
       .get(`https://api.harvardartmuseums.org/color?apikey=${process.env.VUE_APP_API_KEY}`)
       .then(response => {
         this.colors = response.data.records
-        this.nextColors = response.data.info.next
+        this.nextColors = 2
       })
+  },
+  methods: {
+    fetchColors: function() {
+      axios
+        .get(`https://api.harvardartmuseums.org/color?apikey=${process.env.VUE_APP_API_KEY}&page=${this.nextColors}`)
+        .then(response => {
+          response.data.records.forEach(color => this.colors.push(color));
+          this.nextColors++
+        })
+
+    }
   }
 }
 </script>
 
 <style>
-
+  .colorArea {
+    display: flex;
+    flex-wrap: wrap;
+  }
 </style>
