@@ -1,29 +1,21 @@
-# colorful-art-history
+# Colorful Art History
+ 
+This project uses VUE JS to explore the Harvard Art Museum Api.  The user can select colors that appear in the collection then find art that includes those colors.  With hundreds of beautiful art objects to browse, this app will show the user how colorful art history can be!
+
+## Demo:
+![Video Preview of Colorations](./colorful-art-history.gif)
 
 ## Project setup
 ```
-npm install
+1. clone this repo
+2. npm install
+
+- Note that you will need to request an API key from https://www.harvardartmuseums.org/collections/api and create an env variable - 
 ```
 
-### Compiles and hot-reloads for development
+### To start the app
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Contributors
+[Dylan Hofmann](https://github.com/dylhof)  
