@@ -9,7 +9,7 @@
       ></SelectedColors>
     </div>
     <div v-if="view === 'colors'" class="colorArea">
-      <p class="blurb">Select as many colors as you like, then find how colorful Art History can be! </p>
+      <p class="blurb">Select as many colors as you like, then find out how colorful Art History can be! </p>
       <div class="colorArea-div">
         <Colors v-for="(color, index) in colors" :key="index" :color="color" @add-color="addColor"></Colors>
       </div>
@@ -21,7 +21,7 @@
           <Art v-for="(artObject, index) in art" :key="index" :artObject="artObject"></Art>
         </div>
       </div>
-    <button @click="fetchArt">Fetch More Art</button>
+    <button @click="fetchArt">Show More Art</button>
     </div>
   </div>
 </template>
@@ -69,18 +69,19 @@ export default {
     },
     backToColors: function() {
       this.view = "colors"
+      this.nextArt = 1
+      this.art = []
     },
     fetchArt: function() {
-      // const colorString = this.selectedColors.join("|");
+      const colorString = this.selectedColors.join("|");
       axios
         .get(
           `https://api.harvardartmuseums.org/object?apikey=${
             process.env.VUE_APP_API_KEY
-          }&classification=Paintings&size=100&sort=random&page=${this.nextArt}`
+          }&classification=Paintings&size=100&sort=random&page=${this.nextArt}&color=${colorString}`
         )
         .then(response => {
           response.data.records.forEach(record => {
-
             if (record.images !== undefined && record.images.length !== 0) {
               const images = [];
               const people = [];
@@ -111,6 +112,7 @@ export default {
 
 * {
   font-family: 'Arvo', serif;
+  color: #4e4c4c;
 }
 
 body {
@@ -120,8 +122,9 @@ body {
 header {
   height: 100px;
   position: fixed;
-  background-color: white;
+  background-color: whitesmoke;
   width: 100%;
+  box-shadow: 3px 3px 3px #4e4c4c52;
 }
 
 .blurb {
@@ -138,7 +141,7 @@ header {
 }
 
 .colorArea {
-  padding-top: 175px;
+  padding-top: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,14 +153,20 @@ header {
 
 .selectedColors {
   position: fixed;
-  background-color: white;
+  background-color: whitesmoke;
   width: 100%;
   top: 100px;
+  box-shadow: 3px 3px 3px #4e4c4c52;
 }
 
 button {
   height: 30px;
-
+  border: 2px;
+  background-color: #4e4c4c;
+  color: whitesmoke;
+  border-radius: 2px;
+  margin: 20px;
+  box-shadow: 3px 3px 3px #4e4c4c52;
 }
 
 h1{
