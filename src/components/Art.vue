@@ -29,23 +29,29 @@
     height: 300px;
     width: 200px;
     object-fit: cover;
+    box-shadow: 3px 3px 3px #4e4c4c52;
   }
 
   .art {
     display: flex;
     flex-direction: column;
     height: 420px;
-    width: 300px;
+    width: 200px;
     margin: 20px;
   }
 
   .title {
-    height: 75px;
+    max-height: 50px;
     overflow: scroll;
   }
 
   .artists {
     height: 30px;
     overflow: scroll;
+  }
+
+  p { 
+    font-size: 11px;
+  
   }
 </style>
