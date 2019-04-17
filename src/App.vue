@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <header><h1>Colorful Art History</h1></header>
     <div class="selectedColors">
       <SelectedColors
         v-if="selectedColors.length > 0"
@@ -8,14 +9,19 @@
       ></SelectedColors>
     </div>
     <div v-if="view === 'colors'" class="colorArea">
-      <Colors v-for="(color, index) in colors" :key="index" :color="color" @add-color="addColor"></Colors>
+      <p class="blurb">Select as many colors as you like, then find out how colorful Art History can be! </p>
+      <div class="colorArea-div">
+        <Colors v-for="(color, index) in colors" :key="index" :color="color" @add-color="addColor"></Colors>
+      </div>
     </div>
     <div v-else-if="view === 'art'" >
-      <button @click="backToColors">Back To Colors</button>
       <div class="artArea">
-        <Art v-for="(artObject, index) in art" :key="index" :artObject="artObject"></Art>
+        <button @click="backToColors">Back To Colors</button>
+        <div class="paintingArea">
+          <Art v-for="(artObject, index) in art" :key="index" :artObject="artObject"></Art>
+        </div>
       </div>
-    <button @click="fetchArt">Fetch More Art</button>
+    <button @click="fetchArt">Show More Art</button>
     </div>
   </div>
 </template>
@@ -63,18 +69,20 @@ export default {
     },
     backToColors: function() {
       this.view = "colors"
+      this.nextArt = 1
+      this.art = []
     },
     fetchArt: function() {
-      // const colorString = this.selectedColors.join("|");
+      const colorString = this.selectedColors.join("|");
       axios
         .get(
           `https://api.harvardartmuseums.org/object?apikey=${
             process.env.VUE_APP_API_KEY
-          }&classification=Paintings&size=100&sort=random&page=${this.nextArt}`
+          }&classification=Paintings&size=100&sort=random&page=${this.nextArt}&color=${colorString}`
         )
         .then(response => {
           response.data.records.forEach(record => {
-            if (record.images !== undefined) {
+            if (record.images !== undefined && record.images.length !== 0) {
               const images = [];
               const people = [];
               record.images.forEach(image => images.push(image.baseimageurl));
@@ -100,15 +108,68 @@ export default {
 </script>
 
 <style>
-.colorArea,
-.artArea {
+@import url('https://fonts.googleapis.com/css?family=Arvo');
+
+* {
+  font-family: 'Arvo', serif;
+  color: #4e4c4c;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  height: 100px;
+  position: fixed;
+  background-color: whitesmoke;
+  width: 100%;
+  box-shadow: 3px 3px 3px #4e4c4c52;
+}
+
+.blurb {
+  margin: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.colorArea-div,
+.paintingArea {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+.colorArea {
+  padding-top: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.artArea {
+  padding-top: 150px;
 }
 
 .selectedColors {
   position: fixed;
-  background-color: white;
+  background-color: whitesmoke;
   width: 100%;
+  top: 100px;
+  box-shadow: 3px 3px 3px #4e4c4c52;
+}
+
+button {
+  height: 30px;
+  border: 2px;
+  background-color: #4e4c4c;
+  color: whitesmoke;
+  border-radius: 2px;
+  margin: 20px;
+  box-shadow: 3px 3px 3px #4e4c4c52;
+}
+
+h1{
+  margin: 20px;
 }
 </style>

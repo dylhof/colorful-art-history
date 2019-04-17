@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>SelectedColors</h1>
-      <div class="selectedColorArea"> 
+  <div class= "selectedColorArea">
+    <h2>SelectedColors</h2>
+      <div class="selectedColorArea-div"> 
         <div 
           class="selectedColor"
           v-for="(color, i) in selectedColors"
@@ -10,7 +10,7 @@
         </div>
       </div>
       <button
-        @click="$emit('fetch-art')">Find Art</button>
+        @click="$emit('fetch-art')">Find Colorful Art History</button>
   </div>
 </template>
 
@@ -26,6 +26,13 @@ export default {
 <style scoped>
   .selectedColorArea {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .selectedColorArea-div {
+    display: flex;
   }
 
   .selectedColor {
@@ -35,4 +42,5 @@ export default {
     border-radius: 50%;
     margin: 2px;
   }
+  
 </style>
