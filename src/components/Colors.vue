@@ -25,15 +25,15 @@ export default {
     justify-content: center;
     align-items: center;
     margin: 10px;
-    border: 2px solid black;  
+    border: 2px solid #4e4c4c52;  
   }
 
   .colors:hover {
     cursor: pointer;
   }
-  
+
   p {
-    text-shadow: 1px 1px 1px #dad6d6;
+    text-shadow: 1px 1px 1px whitesmoke;
     font-size: 11px;
     letter-spacing: 2px;
   }
