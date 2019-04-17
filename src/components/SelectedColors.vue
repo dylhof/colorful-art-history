@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>SelectedColors</h1>
+    <h2>SelectedColors</h2>
       <div class="selectedColorArea"> 
         <div 
           class="selectedColor"
@@ -35,4 +35,5 @@ export default {
     border-radius: 50%;
     margin: 2px;
   }
+  
 </style>
