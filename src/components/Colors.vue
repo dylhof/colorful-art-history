@@ -18,13 +18,23 @@ export default {
 
 <style scoped>
   .colors {
-    height: 150px;
-    width: 150px;
+    height: 155px;
+    width: 155px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 10px;
     border: 2px solid black;  
+  }
+
+  .colors:hover {
+    cursor: pointer;
+  }
+  
+  p {
+    text-shadow: 1px 1px 1px #dad6d6;
+    font-size: 11px;
+    letter-spacing: 2px;
   }
 </style>
