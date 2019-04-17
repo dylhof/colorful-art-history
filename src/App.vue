@@ -62,7 +62,6 @@ export default {
       }
     },
     backToColors: function() {
-      this.selectedColors = []
       this.view = "colors"
     },
     fetchArt: function() {
